@@ -1,23 +1,23 @@
 import pygame 
 from sys import exit 
+
 pygame.init()
-screen = pygame.display.set_mode((700,700))
+screen_width = 800
+screen_height = 600 
+screen = pygame.display.set_mode((screen_width, screen_height))
+pygame.display.set_caption("PI from collisions")
+running = True
+white = (255,255,255)
 clock = pygame.time.Clock()
 
-pi_creature = pygame.image.load("piCreature.png")
-pi_creature = pygame.transform.scale(pi_creature, (50,50))
-while True: 
+while running: 
+    screen.fill(white)
     for event in pygame.event.get(): 
         if event.type == pygame.QUIT: 
-            pygame.quit()
             exit()
-            break
-    
-    screen.blit(pi_creature, (100,100))
-
-
+            running = False
+            break 
     pygame.display.update()
-    screen.fill("white")
     clock.tick(60)
 
-
+pygame.quit()
