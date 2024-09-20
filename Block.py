@@ -1,11 +1,15 @@
 import pygame 
 class Block: 
-    def __init__(self, x, y, mass, vi):
+    def __init__(self, x, y, mass, vi, width, height):
         self.x = x 
-        self.y = y 
+        self.y = y - height 
         self.m = mass
         self.vi = vi 
-    def show(self, screen, color):
-        pygame.draw.rect(screen, color, (self.x, self.y, self.m, self.m))
+        self.w = width 
+        self.h = height
+    def show(self, screen):
+        image = pygame.image.load("piCreature.png")
+        image = pygame.transform.scale(image, (self.w, self.h))
+        screen.blit(image, (self.x, self.y))
     def move(self): 
         pass 
