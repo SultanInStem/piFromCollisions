@@ -19,7 +19,7 @@ class Canvas:
             "red": (111,11,11)
         }
         self.running = True
-        self.PLAY_BUTTON = Button("Play", (-50 + size[0] // 2, 10), (100,80)) 
+        self.PLAY_BUTTON = Button("Pause", (-50 + size[0] // 2, 10), (100,80)) 
 
         self.fps = fps 
         self.screen = pygame.display.set_mode(size)
@@ -45,12 +45,10 @@ class Canvas:
         self.small_block.move()
 
     def render(self): 
-
         self.PLAY_BUTTON.show(self.screen)
         self.ground.show(self.screen)
         self.small_block.show(self.screen)
         self.big_block.show(self.screen)
-
         pygame.display.update()
         self.clock.tick(self.fps)
         pass
