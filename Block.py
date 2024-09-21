@@ -2,7 +2,7 @@ import pygame
 class Block: 
     def __init__(self, pos, size, mass, vi):
         self.x = pos[0] 
-        self.y = pos[1] - size[1] 
+        self.y = pos[1] - size[1]
         self.m = mass
         self.vi = vi 
         self.w = size[0] 

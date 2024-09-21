@@ -1,6 +1,6 @@
 import pygame
 class Ground: 
-    def __init__(self, size, pos, color):
+    def __init__(self, pos, size,color):
         self.size = size 
         self.pos = pos 
         self.color = color
