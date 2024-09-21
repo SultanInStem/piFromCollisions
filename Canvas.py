@@ -6,9 +6,11 @@ from Block import Block
 class Canvas: 
     def __init__(self, size, title, fps): 
         pygame.init()
+        self.is_paused = False 
         self.size = size 
-        self.small_block = Block((50,size[1] - 200), (100,100), 10, 0)
-        self.big_block = Block((200,size[1] -  200), (300,300), 100, -1)
+        ground_height = 200 
+        self.small_block = Block((50,size[1] - ground_height), (100,100), 10, 0)
+        self.big_block = Block((200,size[1] -  ground_height), (200,200), 100, -1)
         self.colors = {
             "black": (0,0,0), 
             "white": (255,255,255), 
@@ -25,7 +27,7 @@ class Canvas:
         self.clock = pygame.time.Clock()
 
 
-        self.ground = Ground((0,size[1] - 200), (size[0], 200), self.colors['light_green'])
+        self.ground = Ground((0,size[1] - ground_height), (size[0], ground_height), self.colors['light_green'])
 
 
     def handleInputs(self): 
@@ -38,7 +40,9 @@ class Canvas:
                 if self.PLAY_BUTTON.listenForInput(mousePos): 
                     self.PLAY_BUTTON.set_click()
     def update(self): 
-        pass
+        self.big_block.move()
+        self.small_block.move()
+        
     def render(self): 
 
         self.PLAY_BUTTON.show(self.screen)
@@ -53,7 +57,7 @@ class Canvas:
         while self.running: 
             self.screen.fill(self.colors['light_blue'])
             self.handleInputs()
-            self.update()
+            if self.is_paused is False: self.update()
             self.render()
         pygame.quit()
         

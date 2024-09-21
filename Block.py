@@ -11,5 +11,5 @@ class Block:
         image = pygame.image.load("piCreature.png")
         image = pygame.transform.scale(image, (self.w, self.h))
         screen.blit(image, (self.x, self.y))
-    def move(self): 
-        pass 
+    def move(self):
+        self.x += self.vi 
