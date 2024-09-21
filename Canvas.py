@@ -39,10 +39,11 @@ class Canvas:
             if event.type == pygame.MOUSEBUTTONDOWN: 
                 if self.PLAY_BUTTON.listenForInput(mousePos): 
                     self.PLAY_BUTTON.set_click()
+                    self.is_paused = not self.is_paused
     def update(self): 
         self.big_block.move()
         self.small_block.move()
-        
+
     def render(self): 
 
         self.PLAY_BUTTON.show(self.screen)
