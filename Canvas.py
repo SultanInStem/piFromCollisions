@@ -11,7 +11,8 @@ class Canvas:
             "black": (0,0,0), 
             "white": (255,255,255), 
             "light_green": (144,238,144), 
-            "light_blue": (173, 216, 230)
+            "light_blue": (173, 216, 230), 
+            "red": (111,11,11)
         }
         self.running = True
         self.PLAY_BUTTON = Button("Play", (-50 + size[0] // 2, 10), (100,80)) 
