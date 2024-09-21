@@ -9,7 +9,7 @@ class Canvas:
         self.running = True
         self.clock = pygame.time.Clock()
         self.fps = fps 
-        self.playButton = Button("Play", (500,400),(100,100))
+        self.PLAY_BUTTON = Button("Play", (int(size[0] / 2),10), (100,100))
     def handleInputs(self): 
         mousePos = pygame.mouse.get_pos()
         for event in pygame.event.get(): 
@@ -17,13 +17,13 @@ class Canvas:
                 self.running = False 
                 exit()
             if event.type == pygame.MOUSEBUTTONDOWN: 
-                if self.playButton.listenForInput(mousePos): 
+                if self.PLAY_BUTTON.listenForInput(mousePos): 
                     print("CLICK PLAY")
     def update(self): 
         pass
     def render(self): 
 
-        self.playButton.show(self.screen)
+        self.PLAY_BUTTON.show(self.screen)
         
 
 
