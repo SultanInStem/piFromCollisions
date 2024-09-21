@@ -2,6 +2,7 @@ import pygame
 class Button: 
     def __init__(self, title, pos, size):
         font = pygame.font.Font(None, 36)
+        self.is_clicked = False 
         self.text_color = (0,0,0)
         self.rect_color = (255,255,255)
         self.x = pos[0] 
@@ -17,3 +18,5 @@ class Button:
     def show(self, screen): 
         pygame.draw.rect(screen, self.rect_color, (self.x, self.y, self.w, self.h))
         screen.blit(self.text_surface, self.text_rect)
+    def set_click(self): 
+        self.is_clicked = not self.is_clicked
