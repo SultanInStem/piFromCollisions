@@ -1,6 +1,6 @@
 from Canvas import Canvas
 def main(): 
-    canvas = Canvas((1000,800), "Collisions")
+    canvas = Canvas((1000,800), "Collisions", 60)
     canvas.run()
 if __name__ == "__main__": 
     main()
