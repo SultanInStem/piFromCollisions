@@ -2,11 +2,16 @@ import pygame
 from sys import exit
 from Button import Button
 from Ground import Ground
+from Block import Block 
 class Canvas: 
     def __init__(self, size, title, fps): 
         pygame.init()
+
+
         self.size = size 
         self.ground_height = 300 
+        small_block = Block((50,300),(100,100), 10, 0)
+        big_block = Block((200,300), (300,300), 100, -1)
         self.colors = {
             "black": (0,0,0), 
             "white": (255,255,255), 
