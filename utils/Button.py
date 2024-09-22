@@ -1,9 +1,9 @@
 import pygame
 class Button: 
-    def __init__(self, title, pos, size, action):
+    def __init__(self, title, pos, size):
         font = pygame.font.Font(None, 36)
-        self.action = action 
-        self.is_clicked = False 
+        self.title = title
+        self.is_clicked = True
         self.text_color = (0,0,0)
         self.rect_color = (255,255,255)
         self.x = pos[0] 
@@ -23,6 +23,6 @@ class Button:
         self.text_surface = font.render(text, True, self.text_color)
         self.text_rect = self.text_surface.get_rect(center=(self.x + self.w // 2, self.y + self.h // 2)) 
     def set_click(self): 
-        self.is_clicked = not self.is_clicked
-        if self.is_clicked: self.render_text("Play")
-        else: self.render_text("Pause")
+        pass
+    def swipe_text(self, new_text): 
+        pass

@@ -16,7 +16,7 @@ class Canvas:
         font = pygame.font.Font(None, 36)
         self.coll_counter = 0
         self.font = font
-        self.is_paused = False 
+        self.is_paused = True
         self.running = True
         self.size = size 
         ground_height = 200 
@@ -33,16 +33,17 @@ class Canvas:
 
         ### BUTTONS 
         self.buttons = [
-            Button("Pause", (-50 + size[0] // 2, 10), (100,50), "PLAY"), 
-            Button("Reset", (-250 + size[0] // 2, 10), (100,50), "RESET")
+            Button("PLAY", (-50 + size[0] // 2, 10), (100,50)), 
+            Button("RESET", (-250 + size[0] // 2, 10), (100,50))
         ]
 
         self.ground = Ground((0,size[1] - ground_height), (size[0], ground_height), colors['light_green'])
     def reset(self): 
+        self.is_paused = True
         for slider in self.sliders: slider.reset() 
         for block in self.blocks: block.reset()
     def handle_button_click(self, button_clicked): 
-        match (button_clicked.action):
+        match (button_clicked.title):
             case "PLAY":
                 button_clicked.set_click()
                 self.is_paused = not self.is_paused 
@@ -61,11 +62,13 @@ class Canvas:
         
     def update(self): 
         if self.is_paused: return
+
         for block in self.blocks: 
             block.move()
             # checks if a block collided with the wall and reverse the velocity
             if block.rect.x <= 0 or block.rect.x + block.rect.size[0] >= self.size[0]: 
-                block.set_vel(-1 * block.vi)
+                block.set_vel(-1 * block.vi) 
+        # check collisions between the blocks
         for i in range(0, len(self.blocks) - 1): 
             for j in range(i + 1, len(self.blocks)): 
                 self.blocks[i].is_collided(self.blocks[j])
@@ -86,7 +89,7 @@ class Canvas:
         for button in self.buttons: button.show(self.screen)
         for block in self.blocks: block.show(self.screen)
         for slider in self.sliders: 
-            if slider.container_rect.collidepoint(mouse_pos) and mouse[0]: 
+            if slider.container_rect.collidepoint(mouse_pos) and mouse[0] and self.is_paused is True: 
                 slider.move_slider(mouse_pos)
                 self.update_block(slider.block_id, slider.role, slider.get_value())
             slider.render(self.screen)
