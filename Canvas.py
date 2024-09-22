@@ -15,8 +15,10 @@ class Canvas:
         self.is_paused = False 
         self.size = size 
         ground_height = 200 
-        self.small_block = Block((50,size[1] - ground_height), (50,50), 10, 0,1)
-        self.big_block = Block((300,size[1] -  ground_height), (100,100), 100, -1,2)
+        self.blocks = [
+            Block((50,size[1] - ground_height), (50,50), 10, 0,1),
+            Block((300,size[1] -  ground_height), (100,100), 100, -1,2)
+        ]
         self.running = True
 
         ### BUTTONS 
@@ -31,14 +33,12 @@ class Canvas:
         self.clock = pygame.time.Clock()
         self.ground = Ground((0,size[1] - ground_height), (size[0], ground_height), colors['light_green'])
         self.sliders = [
-            Slider((400,100), (100,25), 0, 0, 3,"mass", self.small_block), 
-            Slider((400,200), (100,25), 0.5, -5,5,"velocity",self.small_block), 
-            Slider((650,100), (100,25), 0.7, 0, 3,"mass",self.big_block), 
-            Slider((650,200), (100,25), 0.5, -5,5,"velocity",self.big_block), 
+            Slider((400,100), (100,25), 0, 0, 3,"mass", 1), 
+            Slider((400,200), (100,25), 0.5, -5,5,"velocity",1), 
+            Slider((650,100), (100,25), 0.7, 0, 3,"mass", 1), 
+            Slider((650,200), (100,25), 0.5, -5,5,"velocity",1), 
         ]
     def reset(self): 
-        self.small_block.reset_pos()
-        self.big_block.reset_pos()
         for slider in self.sliders: slider.reset() 
     def handle_button_click(self, button_clicked): 
         match (button_clicked.action):
@@ -58,22 +58,20 @@ class Canvas:
                 for button in self.buttons: 
                     if button.listenForInput(mousePos): self.handle_button_click(button)
     def update(self): 
-        self.big_block.move()
-        self.small_block.move()
+        for block in self.blocks: block.move()
 
     def render(self): 
         mouse_pos = pygame.mouse.get_pos()
         mouse = pygame.mouse.get_pressed()
         for button in self.buttons: button.show(self.screen)
-        self.ground.show(self.screen)
-        self.small_block.show(self.screen)
-        self.big_block.show(self.screen)
+        for block in self.blocks: block.show(self.screen)
         for slider in self.sliders: 
             if slider.container_rect.collidepoint(mouse_pos) and mouse[0]: 
                 slider.move_slider(mouse_pos)
             slider.render(self.screen)
         text_surface = self.font.render(f"Number of collisions: {self.coll_counter}", True, (0,0,0))
         self.screen.blit(text_surface, (600,40))
+        self.ground.show(self.screen)
         pygame.display.update()
         self.clock.tick(self.fps)
     def run(self): 

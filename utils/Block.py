@@ -9,7 +9,7 @@ class Block:
         self.default_size = size
         self.rect = pygame.Rect(self.default_pos, size)
         self.font = pygame.font.Font(None, 36)
-        self.label = self.font.render(f"m{id}", True, (255,245,255))
+        self.label = self.font.render(f"m{id}", True, (255,255,255))
     def show(self, screen):
         x = self.rect.x 
         y = self.rect.y 
