@@ -31,7 +31,8 @@ class Canvas:
             Slider((100,100), (100,30), 0.5, 0,100)
         ]
     def reset(self): 
-        # self.small_block.
+        self.small_block.reset_pos()
+        self.big_block.reset_pos()
         pass
     def handle_button_click(self, button_clicked): 
         match (button_clicked.action):
