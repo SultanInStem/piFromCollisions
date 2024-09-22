@@ -22,5 +22,10 @@ class Slider:
     def move_slider(self, pos): 
         self.button_rect.centerx = pos[0]
 
+    def get_value(self):
+        value_range = self.slider_right_pos - self.slider_left_pos 
+        button_value = self.button_rect.centerx - self.slider_left_pos 
+        value = (button_value / value_range) * (self.max - self.min) + self.min
+        return value 
 
 

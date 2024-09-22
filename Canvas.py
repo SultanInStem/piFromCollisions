@@ -1,9 +1,9 @@
 import pygame
 from sys import exit
-from Button import Button
-from Ground import Ground
-from Block import Block 
-from Slider import Slider
+from utils.Button import Button
+from utils.Ground import Ground
+from utils.Block import Block 
+from utils.Slider import Slider
 class Canvas: 
     def __init__(self, size, title, fps): 
         pygame.init()
@@ -59,6 +59,7 @@ class Canvas:
             if slider.container_rect.collidepoint(mouse_pos) and mouse[0]: 
                 slider.move_slider(mouse_pos)
             slider.render(self.screen)
+            slider.get_value()
         pygame.display.update()
         self.clock.tick(self.fps)
     def run(self): 
