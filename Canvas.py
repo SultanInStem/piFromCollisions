@@ -9,17 +9,20 @@ from utils.globals import colors
 class Canvas: 
     def __init__(self, size, title, fps): 
         pygame.init()
+        font = pygame.font.Font(None, 36)
+        self.coll_counter = 0
+        self.font = font
         self.is_paused = False 
         self.size = size 
         ground_height = 200 
-        self.small_block = Block((50,size[1] - ground_height), (100,100), 10, 0)
-        self.big_block = Block((200,size[1] -  ground_height), (200,200), 100, -1)
+        self.small_block = Block((50,size[1] - ground_height), (100,100), 10, 0,0)
+        self.big_block = Block((200,size[1] -  ground_height), (200,200), 100, -1,1)
         self.running = True
 
         ### BUTTONS 
         self.buttons = [
-            Button("Pause", (-50 + size[0] // 2, 10), (100,80), "PLAY"), 
-            Button("Reset", (-250 + size[0] // 2, 10), (100,80), "RESET")
+            Button("Pause", (-50 + size[0] // 2, 10), (100,50), "PLAY"), 
+            Button("Reset", (-250 + size[0] // 2, 10), (100,50), "RESET")
         ]
 
         self.fps = fps 
@@ -28,7 +31,10 @@ class Canvas:
         self.clock = pygame.time.Clock()
         self.ground = Ground((0,size[1] - ground_height), (size[0], ground_height), colors['light_green'])
         self.sliders = [
-            Slider((100,100), (100,30), 0.5, 0,100)
+            Slider((100,100), (100,30), 0.5, 0,100,"mass m1"), 
+            Slider((100,200), (100,30), 0.5, 0,100,"velocity v1"), 
+            Slider((250,100), (100,30), 0.5, 0,100,"mass m2"), 
+            Slider((250,200), (100,30), 0.5, 0,100,"velocity v2zx"), 
         ]
     def reset(self): 
         self.small_block.reset_pos()
@@ -63,10 +69,14 @@ class Canvas:
         self.small_block.show(self.screen)
         self.big_block.show(self.screen)
 
+        # 
+
         for slider in self.sliders: 
             if slider.container_rect.collidepoint(mouse_pos) and mouse[0]: 
                 slider.move_slider(mouse_pos)
             slider.render(self.screen)
+        text_surface = self.font.render(f"Number of collisions: {self.coll_counter}", True, (0,0,0))
+        self.screen.blit(text_surface, (600,40))
         pygame.display.update()
         self.clock.tick(self.fps)
     def run(self): 

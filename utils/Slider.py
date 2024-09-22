@@ -1,6 +1,6 @@
 import pygame 
 class Slider: 
-    def __init__(self, pos: tuple, size: tuple, initial_val: float, min_value: int, max_value: int):
+    def __init__(self, pos: tuple, size: tuple, initial_val: float, min_value: int, max_value: int, label):
         self.size = size 
         self.pos = pos
 
