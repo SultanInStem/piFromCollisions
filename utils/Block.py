@@ -5,13 +5,17 @@ class Block:
         self.id = id
         self.m = mass
         self.vi = vi 
-        self.w = size[0] 
-        self.h = size[1]
         self.default_pos = (pos[0], pos[1] - size[1])
         self.default_size = size
         self.rect = pygame.Rect(self.default_pos, size)
+        self.font = pygame.font.Font(None, 36)
+        self.label = self.font.render("m1", True, (255,245,255))
     def show(self, screen):
+        x = self.rect.x 
+        y = self.rect.y 
+        size = self.rect.size
         pygame.draw.rect(screen, (0,0,0), self.rect)
+        screen.blit(self.label, (x + size[0] // 2, y + size[1] // 2))
     def move(self):
         self.rect.x += self.vi
     def reset_pos(self): 
