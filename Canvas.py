@@ -33,8 +33,8 @@ class Canvas:
 
         ### BUTTONS 
         self.buttons = [
-            Button("PLAY", (-50 + size[0] // 2, 10), (100,50)), 
-            Button("RESET", (-250 + size[0] // 2, 10), (100,50))
+            Button("PLAY", (-50 + size[0] // 2, 10), (100,50), "PAUSE"), 
+            Button("RESET", (-250 + size[0] // 2, 10), (100,50), None)
         ]
 
         self.ground = Ground((0,size[1] - ground_height), (size[0], ground_height), colors['light_green'])
@@ -45,8 +45,8 @@ class Canvas:
     def handle_button_click(self, button_clicked): 
         match (button_clicked.title):
             case "PLAY":
-                button_clicked.set_click()
-                self.is_paused = not self.is_paused 
+                self.is_paused = not self.is_paused
+                button_clicked.is_on = self.is_paused
                 pass 
             case "RESET": 
                 self.reset()
