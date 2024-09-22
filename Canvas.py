@@ -21,8 +21,8 @@ class Canvas:
         self.size = size 
         ground_height = 200 
         self.blocks = [
-            Block((50,size[1] - ground_height), (50,50), 10, 0,1),
-            Block((300,size[1] -  ground_height), (50,50), 100, 0,2)
+            Block((50,size[1] - ground_height), (50,50), 1, 0,1),
+            Block((300,size[1] -  ground_height), (50,50), 1, 0,2)
         ]
         self.sliders = [
             Slider((500,100), (100,25), 0, 0, 3,"mass", 1), 
@@ -66,8 +66,8 @@ class Canvas:
         v1 = num / denom 
         num = 2 * block_1.m * block_1.vi + (block_2.m - block_1.m) * block_2.vi
         v2 = num / denom 
-        print("v1", v1)
-        print("v2", v2)
+        # print("v1", v1)
+        # print("v2", v2)
         block_1.set_vel(v1)
         block_2.set_vel(v2)
         
