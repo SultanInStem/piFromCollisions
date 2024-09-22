@@ -19,6 +19,8 @@ class Slider:
     def render(self, screen): 
         pygame.draw.rect(screen, "darkgray", self.container_rect)
         pygame.draw.rect(screen, "pink", self.button_rect)
+    def move_slider(self, pos): 
+        self.button_rect.centerx = pos[0]
 
 
 
