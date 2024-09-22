@@ -23,16 +23,23 @@ class Slider:
         self.font = pygame.font.Font(None, 25) 
 
     def render(self, screen): 
-        pygame.draw.rect(screen, "darkgray", self.container_rect)
-        pygame.draw.rect(screen, "pink", self.button_rect)
+        pygame.draw.rect(screen, "black", self.container_rect)
+        pygame.draw.rect(screen, "blue", self.button_rect)
 
         val = self.get_value()
         value_text = self.font.render(f"{int(val)}", True, (0,0,0))
-        # role_text = self.font.render(f"{self.role} {self.block_id}",True,(0,0,0))
-        screen.blit(value_text, (self.slider_right_pos + 10, self.slider_top_pos))
-        # screen.blit(role_text, (self.slider_left_pos - 50, self.slider_top_pos))
+        role_text = self.font.render(f"{self.role} {self.block.id}",True,(0,0,0))
+
+        screen.blit(value_text, (self.slider_right_pos + 10, self.slider_top_pos + value_text.get_size()[1] // 2))
+        screen.blit(role_text, (self.slider_left_pos - 100, self.slider_top_pos + role_text.get_size()[1] // 2))
     def move_slider(self, pos): 
         self.button_rect.centerx = pos[0]
+        value = self.get_value()
+        if self.role == "mass": 
+            self.block.set_mass(value)
+        else:
+            self.block.set_vel(value) 
+
 
     def get_value(self):
         value_range = self.slider_right_pos - self.slider_left_pos 
