@@ -9,6 +9,10 @@ from utils.globals import colors
 class Canvas: 
     def __init__(self, size, title, fps): 
         pygame.init()
+        self.fps = fps 
+        self.screen = pygame.display.set_mode(size)
+        pygame.display.set_caption(title)
+        self.clock = pygame.time.Clock()
         font = pygame.font.Font(None, 36)
         self.coll_counter = 0
         self.font = font
@@ -33,10 +37,6 @@ class Canvas:
             Button("Reset", (-250 + size[0] // 2, 10), (100,50), "RESET")
         ]
 
-        self.fps = fps 
-        self.screen = pygame.display.set_mode(size)
-        pygame.display.set_caption(title)
-        self.clock = pygame.time.Clock()
         self.ground = Ground((0,size[1] - ground_height), (size[0], ground_height), colors['light_green'])
     def reset(self): 
         for slider in self.sliders: slider.reset() 
