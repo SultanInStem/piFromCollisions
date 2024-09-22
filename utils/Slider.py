@@ -1,8 +1,12 @@
-import pygame 
+import math
+import pygame
+from utils.Block import Block 
 class Slider: 
-    def __init__(self, pos: tuple, size: tuple, initial_val: float, min_value: int, max_value: int, label):
+    def __init__(self, pos: tuple, size: tuple, initial_val: float, min_value: int, max_value: int, role, block: Block):
         self.size = size 
         self.pos = pos
+        self.role = role 
+        self.block = block
 
         self.slider_left_pos = self.pos[0] - (self.size[0] // 2)
         self.slider_right_pos = self.pos[0] + (self.size[0] // 2)
@@ -24,8 +28,9 @@ class Slider:
 
         val = self.get_value()
         value_text = self.font.render(f"{int(val)}", True, (0,0,0))
+        # role_text = self.font.render(f"{self.role} {self.block_id}",True,(0,0,0))
         screen.blit(value_text, (self.slider_right_pos + 10, self.slider_top_pos))
-
+        # screen.blit(role_text, (self.slider_left_pos - 50, self.slider_top_pos))
     def move_slider(self, pos): 
         self.button_rect.centerx = pos[0]
 
@@ -33,6 +38,9 @@ class Slider:
         value_range = self.slider_right_pos - self.slider_left_pos 
         button_value = self.button_rect.centerx - self.slider_left_pos 
         value = (button_value / value_range) * (self.max - self.min) + self.min
+        if self.role == "mass": 
+            power_of_10 = math.pow(10, round(value))
+            return power_of_10
         return value 
 
 

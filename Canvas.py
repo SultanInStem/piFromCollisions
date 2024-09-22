@@ -15,8 +15,8 @@ class Canvas:
         self.is_paused = False 
         self.size = size 
         ground_height = 200 
-        self.small_block = Block((50,size[1] - ground_height), (100,100), 10, 0,0)
-        self.big_block = Block((200,size[1] -  ground_height), (200,200), 100, -1,1)
+        self.small_block = Block((50,size[1] - ground_height), (100,100), 10, 0,1)
+        self.big_block = Block((200,size[1] -  ground_height), (200,200), 100, -1,2)
         self.running = True
 
         ### BUTTONS 
@@ -31,10 +31,10 @@ class Canvas:
         self.clock = pygame.time.Clock()
         self.ground = Ground((0,size[1] - ground_height), (size[0], ground_height), colors['light_green'])
         self.sliders = [
-            Slider((100,100), (100,30), 0.5, 0,100,"mass m1"), 
-            Slider((100,200), (100,30), 0.5, 0,100,"velocity v1"), 
-            Slider((250,100), (100,30), 0.5, 0,100,"mass m2"), 
-            Slider((250,200), (100,30), 0.5, 0,100,"velocity v2zx"), 
+            Slider((400,100), (100,25), 0, 0, 3,"mass", self.small_block), 
+            Slider((400,200), (100,25), 0, 1,10,"velocity",self.small_block), 
+            Slider((650,100), (100,25), 0, 0, 3,"mass",self.big_block), 
+            Slider((650,200), (100,25), 0.1, 1,10,"velocity",self.big_block), 
         ]
     def reset(self): 
         self.small_block.reset_pos()
@@ -68,8 +68,6 @@ class Canvas:
         self.ground.show(self.screen)
         self.small_block.show(self.screen)
         self.big_block.show(self.screen)
-
-        # 
 
         for slider in self.sliders: 
             if slider.container_rect.collidepoint(mouse_pos) and mouse[0]: 
