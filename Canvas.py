@@ -22,13 +22,13 @@ class Canvas:
         ground_height = 200 
         self.blocks = [
             Block((50,size[1] - ground_height), (50,50), 10, 0,1),
-            Block((300,size[1] -  ground_height), (100,100), 100, 0,2)
+            Block((300,size[1] -  ground_height), (50,50), 100, 0,2)
         ]
         self.sliders = [
             Slider((400,100), (100,25), 0, 0, 3,"mass", 1), 
             Slider((400,200), (100,25), 0.5, -5,5,"velocity",1), 
-            Slider((650,100), (100,25), 0.7, 0, 3,"mass", 2), 
-            Slider((650,200), (100,25), 0.5, -5,5,"velocity",2), 
+            Slider((700,100), (100,25), 0, 0, 3,"mass", 2), 
+            Slider((700,200), (100,25), 0.5, -5,5,"velocity",2), 
         ]
 
         ### BUTTONS 

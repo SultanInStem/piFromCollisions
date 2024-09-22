@@ -35,6 +35,6 @@ class Block:
             self.default_size[1] + self.default_size[1] * math.log10(mass)
         )
         self.rect.size = size
-        self.rect.y = self.default_pos[1] - size[1]
+        self.rect.y = self.default_pos[1] - self.rect.size[1]
     def set_vel(self, vel): 
         self.vi = vel
