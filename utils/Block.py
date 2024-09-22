@@ -10,6 +10,7 @@ class Block:
         self.w = size[0] 
         self.h = size[1]
         self.default_pos = (pos[0], pos[1] - size[1])
+        self.default_size = size
     def show(self, screen):
         image = pygame.image.load("piCreature.png")
         image = pygame.transform.scale(image, (self.w, self.h))
@@ -18,11 +19,10 @@ class Block:
         self.x += self.vi 
     def reset_pos(self): 
         self.x = self.default_pos[0]
-        self.y = self.default_pos[1]
+        self.y = self.default_pos[1] + self.default_size[1]
     def set_mass(self,mass): 
         self.m = mass 
         self.w = 50 + 50 * (math.log10(mass))
         self.h = 50 + 50 * (math.log10(mass))
-        # self.y = self.y - self.h
     def set_vel(self, vel): 
         self.vi = vel

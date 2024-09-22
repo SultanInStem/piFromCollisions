@@ -15,8 +15,8 @@ class Canvas:
         self.is_paused = False 
         self.size = size 
         ground_height = 200 
-        self.small_block = Block((50,size[1] - ground_height), (100,100), 10, 0,1)
-        self.big_block = Block((200,size[1] -  ground_height), (200,200), 100, -1,2)
+        self.small_block = Block((50,size[1] - ground_height), (50,50), 10, 0,1)
+        self.big_block = Block((300,size[1] -  ground_height), (100,100), 100, -1,2)
         self.running = True
 
         ### BUTTONS 
@@ -32,14 +32,14 @@ class Canvas:
         self.ground = Ground((0,size[1] - ground_height), (size[0], ground_height), colors['light_green'])
         self.sliders = [
             Slider((400,100), (100,25), 0, 0, 3,"mass", self.small_block), 
-            Slider((400,200), (100,25), 0, 1,10,"velocity",self.small_block), 
-            Slider((650,100), (100,25), 0, 0, 3,"mass",self.big_block), 
-            Slider((650,200), (100,25), 0.1, 1,10,"velocity",self.big_block), 
+            Slider((400,200), (100,25), 0.5, -5,5,"velocity",self.small_block), 
+            Slider((650,100), (100,25), 0.7, 0, 3,"mass",self.big_block), 
+            Slider((650,200), (100,25), 0.5, -5,5,"velocity",self.big_block), 
         ]
     def reset(self): 
         self.small_block.reset_pos()
         self.big_block.reset_pos()
-        pass
+        for slider in self.sliders: slider.reset() 
     def handle_button_click(self, button_clicked): 
         match (button_clicked.action):
             case "PLAY":

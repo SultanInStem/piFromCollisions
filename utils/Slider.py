@@ -7,6 +7,7 @@ class Slider:
         self.pos = pos
         self.role = role 
         self.block = block
+        self.initial_val = initial_val
 
         self.slider_left_pos = self.pos[0] - (self.size[0] // 2)
         self.slider_right_pos = self.pos[0] + (self.size[0] // 2)
@@ -39,6 +40,15 @@ class Slider:
             self.block.set_mass(value)
         else:
             self.block.set_vel(value) 
+    def reset(self): 
+        self.initial_value = (self.slider_right_pos - self.slider_left_pos) * self.initial_val
+        self.button_rect.centerx = self.slider_left_pos + self.initial_value - 5
+        value = self.get_value()
+        if self.role == "mass": 
+            self.block.set_mass(value)
+        else: self.block.set_vel(round(value))
+
+
 
 
     def get_value(self):
