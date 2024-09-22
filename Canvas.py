@@ -13,13 +13,19 @@ class Canvas:
         self.coll_counter = 0
         self.font = font
         self.is_paused = False 
+        self.running = True
         self.size = size 
         ground_height = 200 
         self.blocks = [
             Block((50,size[1] - ground_height), (50,50), 10, 0,1),
-            Block((300,size[1] -  ground_height), (100,100), 100, -1,2)
+            Block((300,size[1] -  ground_height), (100,100), 100, 0,2)
         ]
-        self.running = True
+        self.sliders = [
+            Slider((400,100), (100,25), 0, 0, 3,"mass", 1), 
+            Slider((400,200), (100,25), 0.5, -5,5,"velocity",1), 
+            Slider((650,100), (100,25), 0.7, 0, 3,"mass", 2), 
+            Slider((650,200), (100,25), 0.5, -5,5,"velocity",2), 
+        ]
 
         ### BUTTONS 
         self.buttons = [
@@ -32,14 +38,9 @@ class Canvas:
         pygame.display.set_caption(title)
         self.clock = pygame.time.Clock()
         self.ground = Ground((0,size[1] - ground_height), (size[0], ground_height), colors['light_green'])
-        self.sliders = [
-            Slider((400,100), (100,25), 0, 0, 3,"mass", 1), 
-            Slider((400,200), (100,25), 0.5, -5,5,"velocity",1), 
-            Slider((650,100), (100,25), 0.7, 0, 3,"mass", 2), 
-            Slider((650,200), (100,25), 0.5, -5,5,"velocity",2), 
-        ]
     def reset(self): 
         for slider in self.sliders: slider.reset() 
+        for block in self.blocks: block.reset()
     def handle_button_click(self, button_clicked): 
         match (button_clicked.action):
             case "PLAY":

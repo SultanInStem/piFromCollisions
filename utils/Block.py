@@ -21,7 +21,9 @@ class Block:
         screen.blit(self.label, text_pos)
     def move(self):
         self.rect.x += self.vi
-    def reset_pos(self): 
+    def reset(self):
+        self.vi = 0 
+        self.rect.size = self.default_size 
         self.rect.x = self.default_pos[0]
         self.rect.y = self.default_pos[1]
     def is_collided(self,other): 
