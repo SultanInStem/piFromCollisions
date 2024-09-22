@@ -39,6 +39,7 @@ class Canvas:
 
         self.ground = Ground((0,size[1] - ground_height), (size[0], ground_height), colors['light_green'])
     def reset(self): 
+        self.coll_counter = 0
         self.is_paused = True
         for button in self.buttons: button.is_on = self.is_paused
         for slider in self.sliders: slider.reset() 
@@ -61,13 +62,12 @@ class Canvas:
                 for button in self.buttons: 
                     if button.listenForInput(mousePos): self.handle_button_click(button)
     def resolve_collision(self, block_1, block_2): 
+        self.coll_counter += 1
         num = (block_1.m - block_2.m) * block_1.vi + 2 * block_2.m * block_2.vi
         denom = block_1.m + block_2.m
         v1 = num / denom 
         num = 2 * block_1.m * block_1.vi + (block_2.m - block_1.m) * block_2.vi
         v2 = num / denom 
-        # print("v1", v1)
-        # print("v2", v2)
         block_1.set_vel(v1)
         block_2.set_vel(v2)
         
@@ -78,6 +78,7 @@ class Canvas:
             block.move()
             # checks if a block collided with the wall and reverse the velocity
             if block.rect.x <= 0: 
+                self.coll_counter += 1
                 block.set_vel(-1 * block.vi) 
         # check collisions between the blocks
         for i in range(0, len(self.blocks) - 1): 
