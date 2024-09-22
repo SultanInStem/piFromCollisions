@@ -73,14 +73,12 @@ class Canvas:
         
     def update(self): 
         if self.is_paused: return
-
         for block in self.blocks: 
             block.move()
-            # checks if a block collided with the wall and reverse the velocity
             if block.rect.x <= 0: 
                 self.coll_counter += 1
                 block.set_vel(-1 * block.vi) 
-        # check collisions between the blocks
+                
         for i in range(0, len(self.blocks) - 1): 
             for j in range(i + 1, len(self.blocks)): 
                 if self.blocks[i].is_collided(self.blocks[j]): 
