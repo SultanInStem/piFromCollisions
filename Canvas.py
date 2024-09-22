@@ -3,6 +3,7 @@ from sys import exit
 from Button import Button
 from Ground import Ground
 from Block import Block 
+from Slider import Slider
 class Canvas: 
     def __init__(self, size, title, fps): 
         pygame.init()
@@ -26,8 +27,11 @@ class Canvas:
         pygame.display.set_caption(title)
         self.clock = pygame.time.Clock()
 
-
         self.ground = Ground((0,size[1] - ground_height), (size[0], ground_height), self.colors['light_green'])
+
+        self.sliders = [
+            Slider((100,100), (100,30), 0.5, 0,100)
+        ]
 
 
     def handleInputs(self): 
@@ -49,9 +53,10 @@ class Canvas:
         self.ground.show(self.screen)
         self.small_block.show(self.screen)
         self.big_block.show(self.screen)
+        for slider in self.sliders: 
+            slider.render(self.screen)
         pygame.display.update()
         self.clock.tick(self.fps)
-        pass
     def run(self): 
         while self.running: 
             self.screen.fill(self.colors['light_blue'])

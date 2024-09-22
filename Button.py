@@ -24,4 +24,4 @@ class Button:
     def set_click(self): 
         self.is_clicked = not self.is_clicked
         if self.is_clicked: self.render_text("Play")
-        else: self.render_text("Pause",)
+        else: self.render_text("Pause")
