@@ -5,6 +5,7 @@ class Block:
         self.id = id
         self.m = mass
         self.vi = vi 
+        self.default_mass = mass
         self.default_pos = (pos[0], pos[1])
         self.default_size = size
         self.rect = pygame.Rect((pos[0],pos[1] - size[1]), size)
@@ -23,6 +24,7 @@ class Block:
         self.rect.x += self.vi
     def reset(self):
         self.vi = 0 
+        self.m = self.default_mass
         self.rect.size = self.default_size 
         self.rect.x = self.default_pos[0]
         self.rect.y = self.default_pos[1] - self.rect.size[1]

@@ -21,8 +21,8 @@ class Canvas:
         self.size = size 
         ground_height = 200 
         self.blocks = [
-            Block((50,size[1] - ground_height), (50,50), 1, 0,1),
-            Block((300,size[1] -  ground_height), (50,50), 1, 0,2)
+            Block((100,size[1] - ground_height), (50,50), 1, 0,1),
+            Block((500,size[1] -  ground_height), (50,50), 1, 0,2)
         ]
         self.sliders = [
             Slider((500,100), (100,25), 0, 0, 3,"mass", 1), 
