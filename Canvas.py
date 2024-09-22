@@ -4,6 +4,8 @@ from utils.Button import Button
 from utils.Ground import Ground
 from utils.Block import Block 
 from utils.Slider import Slider
+from utils.globals import colors
+
 class Canvas: 
     def __init__(self, size, title, fps): 
         pygame.init()
@@ -12,13 +14,6 @@ class Canvas:
         ground_height = 200 
         self.small_block = Block((50,size[1] - ground_height), (100,100), 10, 0)
         self.big_block = Block((200,size[1] -  ground_height), (200,200), 100, -1)
-        self.colors = {
-            "black": (0,0,0), 
-            "white": (255,255,255), 
-            "light_green": (144,238,144), 
-            "light_blue": (173, 216, 230), 
-            "red": (111,11,11)
-        }
         self.running = True
 
         ### BUTTONS 
@@ -31,13 +26,12 @@ class Canvas:
         self.screen = pygame.display.set_mode(size)
         pygame.display.set_caption(title)
         self.clock = pygame.time.Clock()
-
-        self.ground = Ground((0,size[1] - ground_height), (size[0], ground_height), self.colors['light_green'])
-
+        self.ground = Ground((0,size[1] - ground_height), (size[0], ground_height), colors['light_green'])
         self.sliders = [
             Slider((100,100), (100,30), 0.5, 0,100)
         ]
     def reset(self): 
+        # self.small_block.
         pass
     def handle_button_click(self, button_clicked): 
         match (button_clicked.action):
@@ -67,16 +61,16 @@ class Canvas:
         self.ground.show(self.screen)
         self.small_block.show(self.screen)
         self.big_block.show(self.screen)
+
         for slider in self.sliders: 
             if slider.container_rect.collidepoint(mouse_pos) and mouse[0]: 
                 slider.move_slider(mouse_pos)
             slider.render(self.screen)
-            slider.get_value()
         pygame.display.update()
         self.clock.tick(self.fps)
     def run(self): 
         while self.running: 
-            self.screen.fill(self.colors['light_blue'])
+            self.screen.fill(colors['light_blue'])
             self.handleInputs()
             if self.is_paused is False: self.update()
             self.render()

@@ -13,3 +13,6 @@ class Block:
         screen.blit(image, (self.x, self.y))
     def move(self):
         self.x += self.vi 
+    def set_pos(self, pos: tuple): 
+        self.x = pos[0]
+        self.y = pos[1]
