@@ -35,8 +35,8 @@ class Canvas:
         self.sliders = [
             Slider((400,100), (100,25), 0, 0, 3,"mass", 1), 
             Slider((400,200), (100,25), 0.5, -5,5,"velocity",1), 
-            Slider((650,100), (100,25), 0.7, 0, 3,"mass", 1), 
-            Slider((650,200), (100,25), 0.5, -5,5,"velocity",1), 
+            Slider((650,100), (100,25), 0.7, 0, 3,"mass", 2), 
+            Slider((650,200), (100,25), 0.5, -5,5,"velocity",2), 
         ]
     def reset(self): 
         for slider in self.sliders: slider.reset() 
@@ -57,8 +57,18 @@ class Canvas:
             if event.type == pygame.MOUSEBUTTONDOWN: 
                 for button in self.buttons: 
                     if button.listenForInput(mousePos): self.handle_button_click(button)
+        
     def update(self): 
         for block in self.blocks: block.move()
+    def update_block(self, block_id,role,value):
+        if block_id > len(self.blocks): return
+        match(role): 
+            case "velocity":
+                self.blocks[block_id - 1].set_vel(value)
+            case "mass": 
+                self.blocks[block_id - 1].set_mass(value)
+            case _: 
+                pass
 
     def render(self): 
         mouse_pos = pygame.mouse.get_pos()
@@ -68,6 +78,7 @@ class Canvas:
         for slider in self.sliders: 
             if slider.container_rect.collidepoint(mouse_pos) and mouse[0]: 
                 slider.move_slider(mouse_pos)
+                self.update_block(slider.block_id, slider.role, slider.get_value())
             slider.render(self.screen)
         text_surface = self.font.render(f"Number of collisions: {self.coll_counter}", True, (0,0,0))
         self.screen.blit(text_surface, (600,40))
