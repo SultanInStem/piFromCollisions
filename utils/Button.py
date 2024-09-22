@@ -1,7 +1,8 @@
 import pygame
 class Button: 
-    def __init__(self, title, pos, size):
+    def __init__(self, title, pos, size, action):
         font = pygame.font.Font(None, 36)
+        self.action = action 
         self.is_clicked = False 
         self.text_color = (0,0,0)
         self.rect_color = (255,255,255)

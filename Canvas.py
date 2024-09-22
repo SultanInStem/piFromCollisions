@@ -20,7 +20,12 @@ class Canvas:
             "red": (111,11,11)
         }
         self.running = True
-        self.PLAY_BUTTON = Button("Pause", (-50 + size[0] // 2, 10), (100,80)) 
+
+        ### BUTTONS 
+        self.buttons = [
+            Button("Pause", (-50 + size[0] // 2, 10), (100,80), "PLAY"), 
+            Button("Reset", (-250 + size[0] // 2, 10), (100,80), "RESET")
+        ]
 
         self.fps = fps 
         self.screen = pygame.display.set_mode(size)
@@ -32,8 +37,16 @@ class Canvas:
         self.sliders = [
             Slider((100,100), (100,30), 0.5, 0,100)
         ]
-
-
+    def reset(self): 
+        pass
+    def handle_button_click(self, button_clicked): 
+        match (button_clicked.action):
+            case "PLAY":
+                button_clicked.set_click()
+                self.is_paused = not self.is_paused 
+                pass 
+            case "RESET": 
+                self.reset()
     def handleInputs(self): 
         mousePos = pygame.mouse.get_pos()
         for event in pygame.event.get(): 
@@ -41,9 +54,8 @@ class Canvas:
                 self.running = False 
                 exit()
             if event.type == pygame.MOUSEBUTTONDOWN: 
-                if self.PLAY_BUTTON.listenForInput(mousePos): 
-                    self.PLAY_BUTTON.set_click()
-                    self.is_paused = not self.is_paused
+                for button in self.buttons: 
+                    if button.listenForInput(mousePos): self.handle_button_click(button)
     def update(self): 
         self.big_block.move()
         self.small_block.move()
@@ -51,7 +63,7 @@ class Canvas:
     def render(self): 
         mouse_pos = pygame.mouse.get_pos()
         mouse = pygame.mouse.get_pressed()
-        self.PLAY_BUTTON.show(self.screen)
+        for button in self.buttons: button.show(self.screen)
         self.ground.show(self.screen)
         self.small_block.show(self.screen)
         self.big_block.show(self.screen)
