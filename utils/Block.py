@@ -9,7 +9,7 @@ class Block:
         self.h = size[1]
         self.default_pos = (pos[0], pos[1] - size[1])
         self.default_size = size
-        self.rect = pygame.Rect((self.x, self.y), size)
+        self.rect = pygame.Rect(self.default_pos, size)
     def show(self, screen):
         pygame.draw.rect(screen, (0,0,0), self.rect)
     def move(self):
