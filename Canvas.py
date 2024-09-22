@@ -68,7 +68,6 @@ class Canvas:
         self.ground.show(self.screen)
         self.small_block.show(self.screen)
         self.big_block.show(self.screen)
-
         for slider in self.sliders: 
             if slider.container_rect.collidepoint(mouse_pos) and mouse[0]: 
                 slider.move_slider(mouse_pos)
