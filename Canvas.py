@@ -68,6 +68,7 @@ class Canvas:
         v1 = num / denom 
         num = 2 * block_1.m * block_1.vi + (block_2.m - block_1.m) * block_2.vi
         v2 = num / denom 
+
         block_1.set_vel(v1)
         block_2.set_vel(v2)
         
@@ -77,13 +78,9 @@ class Canvas:
             block.move()
             if block.rect.x <= 0: 
                 self.coll_counter += 1
-                block.set_vel(-1 * block.vi) 
-                
-        for i in range(0, len(self.blocks) - 1): 
-            for j in range(i + 1, len(self.blocks)): 
-                if self.blocks[i].is_collided(self.blocks[j]): 
-                    self.resolve_collision(self.blocks[i], self.blocks[j])
-                    break
+                block.set_vel(-1 * block.vi)   
+        if self.blocks[0].is_collided(self.blocks[1]): 
+            self.resolve_collision(self.blocks[0], self.blocks[1])
         
     def update_block(self, block_id,role,value):
         if block_id > len(self.blocks): return
