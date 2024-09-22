@@ -40,6 +40,7 @@ class Canvas:
         self.ground = Ground((0,size[1] - ground_height), (size[0], ground_height), colors['light_green'])
     def reset(self): 
         self.is_paused = True
+        for button in self.buttons: button.is_on = self.is_paused
         for slider in self.sliders: slider.reset() 
         for block in self.blocks: block.reset()
     def handle_button_click(self, button_clicked): 
@@ -59,6 +60,16 @@ class Canvas:
             if event.type == pygame.MOUSEBUTTONDOWN: 
                 for button in self.buttons: 
                     if button.listenForInput(mousePos): self.handle_button_click(button)
+    def resolve_collision(self, block_1, block_2): 
+        num = (block_1.m - block_2.m) * block_1.vi + 2 * block_2.m * block_2.vi
+        denom = block_1.m + block_2.m
+        v1 = num / denom 
+        num = 2 * block_1.m * block_1.vi + (block_2.m - block_1.m) * block_2.vi
+        v2 = num / denom 
+        print("v1", v1)
+        print("v2", v2)
+        block_1.set_vel(v1)
+        block_2.set_vel(v2)
         
     def update(self): 
         if self.is_paused: return
@@ -66,12 +77,14 @@ class Canvas:
         for block in self.blocks: 
             block.move()
             # checks if a block collided with the wall and reverse the velocity
-            if block.rect.x <= 0 or block.rect.x + block.rect.size[0] >= self.size[0]: 
+            if block.rect.x <= 0: 
                 block.set_vel(-1 * block.vi) 
         # check collisions between the blocks
         for i in range(0, len(self.blocks) - 1): 
             for j in range(i + 1, len(self.blocks)): 
-                self.blocks[i].is_collided(self.blocks[j])
+                if self.blocks[i].is_collided(self.blocks[j]): 
+                    self.resolve_collision(self.blocks[i], self.blocks[j])
+                    break
         
     def update_block(self, block_id,role,value):
         if block_id > len(self.blocks): return

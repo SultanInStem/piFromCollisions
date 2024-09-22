@@ -27,9 +27,7 @@ class Block:
         self.rect.x = self.default_pos[0]
         self.rect.y = self.default_pos[1] - self.rect.size[1]
     def is_collided(self,other): 
-        if self.rect.colliderect(other.rect):
-            print("Collision detected")
-        return False
+        return self.rect.colliderect(other.rect)
     def set_mass(self,mass): 
         self.m = mass
         size = (
