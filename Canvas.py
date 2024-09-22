@@ -25,10 +25,10 @@ class Canvas:
             Block((300,size[1] -  ground_height), (50,50), 100, 0,2)
         ]
         self.sliders = [
-            Slider((400,100), (100,25), 0, 0, 3,"mass", 1), 
-            Slider((400,200), (100,25), 0.5, -5,5,"velocity",1), 
-            Slider((700,100), (100,25), 0, 0, 3,"mass", 2), 
-            Slider((700,200), (100,25), 0.5, -5,5,"velocity",2), 
+            Slider((500,100), (100,25), 0, 0, 3,"mass", 1), 
+            Slider((500,200), (100,25), 0.5, -5,5,"velocity",1), 
+            Slider((800,100), (100,25), 0, 0, 3,"mass", 2), 
+            Slider((800,200), (100,25), 0.5, -5,5,"velocity",2), 
         ]
 
         ### BUTTONS 
@@ -60,7 +60,16 @@ class Canvas:
                     if button.listenForInput(mousePos): self.handle_button_click(button)
         
     def update(self): 
-        for block in self.blocks: block.move()
+        if self.is_paused: return
+        for block in self.blocks: 
+            block.move()
+            # checks if a block collided with the wall and reverse the velocity
+            if block.rect.x <= 0 or block.rect.x + block.rect.size[0] >= self.size[0]: 
+                block.set_vel(-1 * block.vi)
+        for i in range(0, len(self.blocks) - 1): 
+            for j in range(i + 1, len(self.blocks)): 
+                self.blocks[i].is_collided(self.blocks[j])
+        
     def update_block(self, block_id,role,value):
         if block_id > len(self.blocks): return
         match(role): 
