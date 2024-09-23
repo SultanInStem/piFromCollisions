@@ -33,7 +33,6 @@ class Block:
         w1 = self.rect.size[0]
         x2 = other.rect.x 
         w2 = other.rect.size[0]
-        # return (x1 < x2 + w2 and x1 + w1 > x2) 
         return self.rect.colliderect(other.rect)
     def set_mass(self,mass): 
         self.m = mass
@@ -43,5 +42,7 @@ class Block:
         )
         self.rect.size = size
         self.rect.y = self.default_pos[1] - self.rect.size[1]
+    def reverse_vel(self): 
+        self.vi *= -1
     def set_vel(self, vel): 
         self.vi = vel

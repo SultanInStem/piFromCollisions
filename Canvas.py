@@ -63,24 +63,29 @@ class Canvas:
                     if button.listenForInput(mousePos): self.handle_button_click(button)
     def resolve_collision(self, block_1, block_2): 
         self.coll_counter += 1
-        num = (block_1.m - block_2.m) * block_1.vi + 2 * block_2.m * block_2.vi
-        denom = block_1.m + block_2.m
-        v1 = num / denom 
-        num = 2 * block_1.m * block_1.vi + (block_2.m - block_1.m) * block_2.vi
-        v2 = num / denom 
-
-        block_1.set_vel(v1)
-        block_2.set_vel(v2)
+        m1 = block_1.m 
+        m2 = block_2.m 
+        v1 = block_1.vi
+        v2 = block_2.vi 
+        num = (m1 - m2) * v1 + 2 * m2 * v2
+        denom = m1 + m2
+        new_v1 = num / denom 
+        num = 2 * m1 * v1 + (m2 - m1) * v2
+        new_v2 = num / denom 
+        block_1.set_vel(new_v1)
+        block_2.set_vel(new_v2)
         
     def update(self): 
         if self.is_paused: return
         for block in self.blocks: 
             block.move()
-            if block.rect.x <= 0: 
+            if block.rect.x < 0: 
                 self.coll_counter += 1
-                block.set_vel(-1 * block.vi)   
-        if self.blocks[0].is_collided(self.blocks[1]): 
-            self.resolve_collision(self.blocks[0], self.blocks[1])
+                block.reverse_vel()
+        for _ in range(1000): 
+            if self.blocks[0].is_collided(self.blocks[1]): 
+                self.resolve_collision(self.blocks[0], self.blocks[1])
+                break
         
     def update_block(self, block_id,role,value):
         if block_id > len(self.blocks): return
