@@ -82,10 +82,10 @@ class Canvas:
             if block.rect.x < 0: 
                 self.coll_counter += 1
                 block.reverse_vel()
-        for _ in range(1000): 
-            if self.blocks[0].is_collided(self.blocks[1]): 
-                self.resolve_collision(self.blocks[0], self.blocks[1])
-                break
+        # for _ in range(1000): 
+        if self.blocks[0].is_collided(self.blocks[1]): 
+            self.resolve_collision(self.blocks[0], self.blocks[1])
+                # break
         
     def update_block(self, block_id,role,value):
         if block_id > len(self.blocks): return
